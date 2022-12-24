@@ -1,12 +1,12 @@
 #!/bin/bash
-#SCRIPT_PATH1="/root/kalyan-thesis/jupyter/output/cpu_pred.sh"
-#SCRIPT_PATH2="/root/kalyan-thesis/jupyter/output/mem_pred.sh"
+#SCRIPT_PATH1="/home/ubuntu/asadthesisproject/jupyter/output/cpu_pred.sh"
+#SCRIPT_PATH2="/home/ubuntu/asadthesisproject/jupyter/output/mem_pred.sh"
 getmetrics=200
 COUNTER=1
   while [  $COUNTER -lt $getmetrics ]; do
     echo The getmerics count is $COUNTER 
-    docker stats --no-stream | grep kalyan-figlet | tr -s ' ' | cut -d' ' -f3 | sed 's/%//' >> metrics/cpumetrics
-    docker stats --no-stream | grep kalyan-figlet | tr -s ' ' | cut -d' ' -f7 | sed 's/%//' >> metrics/memmetrics
+    docker stats --no-stream | grep asad-figlet | tr -s ' ' | cut -d' ' -f3 | sed 's/%//' >> metrics/cpumetrics
+    docker stats --no-stream | grep asad-figlet | tr -s ' ' | cut -d' ' -f7 | sed 's/%//' >> metrics/memmetrics
     #cat metrics/getmetrics |  cut -d' ' -f3 | sed 's/%//' >> metrics/allvalues
     removedecimalcpu=$(sed '1d' metrics/cpumetrics | cut -f2 | awk '$0>75') 
     echo ${removedecimalcpu%%.*} >> metrics/cpugreater75
@@ -33,11 +33,11 @@ COUNTER=1
       rm metrics/cpumetrics
       rm metrics/cpugreater75
       python3 cpuscaling.py greater nodockername
-     #SCRIPT_PATH1="/root/kalyan-thesis/jupyter/output/cpu_pred.sh"
+     #SCRIPT_PATH1="/home/ubuntu/asadthesisproject/jupyter/output/cpu_pred.sh"
       bash ./cpu_pred.sh
      else
       echo "The CPU is less than 75%"
-      docker_name=$(docker ps --format "{{.Names}}" | grep -i kalyan-figlet-cpu)
+      docker_name=$(docker ps --format "{{.Names}}" | grep -i asad-figlet-cpu)
         if [[ -n "$docker_name" ]]; then
 	        #echo "with docker name"
 	        #rm metrics/cpumetrics
@@ -75,7 +75,7 @@ COUNTER=1
       echo "The Memory is less than 65%"
       #rm metrics/memmetrics
       #rm metrics/memgreater65
-      docker_name=$(docker ps --format "{{.Names}}" | grep -i kalyan-figlet-mem)
+      docker_name=$(docker ps --format "{{.Names}}" | grep -i asad-figlet-mem)
         if [[ -n "$docker_name" ]]; then
                 #echo "with docker name"
                 python3 memscaling.py lesser $docker_name

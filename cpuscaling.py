@@ -22,7 +22,7 @@ docker_namestr = [str(docker_name)]
 
 
 
-#docker_name = os.system('docker ps --format "{{.Names}}" | grep -i kalyan-figlet-cpu')
+#docker_name = os.system('docker ps --format "{{.Names}}" | grep -i asad-figlet-cpu')
 #docker_namestr = [str(docker_name)]
 #print (docker_namestr)
 #print (con_cpustr)
@@ -30,13 +30,13 @@ for cpu in con_cpustr:
     for name in docker_namestr:
       if cpu == "greater" and name == "nodockername":
             print(bcolors.WARNING + "-----------------------------------------DYNAMIC CPU SCALING------------------------------------" + bcolors.ENDC)
-            os.system("docker run -d --name kalyan-figlet-cpu functions/figlet >> /dev/null")
-            os.system("docker start kalyan-figlet-cpu >> /dev/null")
+            os.system("docker run -d --name asad-figlet-cpu functions/figlet >> /dev/null")
+            os.system("docker start asad-figlet-cpu >> /dev/null")
             print (" ")
             print(bcolors.WARNING + "CPU Dynamic Scaling Out" + bcolors.ENDC)
-      elif cpu == "lesser" and  name == "kalyan-figlet-cpu":
-            os.system("docker stop kalyan-figlet-cpu >> /dev/null")
-            os.system("docker rm kalyan-figlet-cpu >> /dev/null")
+      elif cpu == "lesser" and  name == "asad-figlet-cpu":
+            os.system("docker stop asad-figlet-cpu >> /dev/null")
+            os.system("docker rm asad-figlet-cpu >> /dev/null")
             #print (" ")
             print(bcolors.WARNING + "CPU Dynamic Scaling In" + bcolors.ENDC )
 

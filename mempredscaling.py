@@ -18,18 +18,18 @@ con_mem = (sys.argv[1])
 con_memstr = [str(con_mem)]
 docker_name = (sys.argv[2])
 docker_namestr = [str(docker_name)]
-os.system("docker stop kalyan-figlet-mempred >> /dev/null")
-os.system("docker rm kalyan-figlet-mempred >> /dev/null")
+os.system("docker stop asad-figlet-mempred >> /dev/null")
+os.system("docker rm asad-figlet-mempred >> /dev/null")
 for mem in con_memstr:
     for name in docker_namestr:
         if mem == "greater" and name == "nodockername":
             print(bcolors.OKGREEN + "-----------------------------------------DYNAMIC PREDECTIVE  MEMORY SCALING------------------------------------" + bcolors.ENDC)
-            os.system("docker run -d --name kalyan-figlet-mempred functions/figlet >> /dev/null")
-            os.system("docker start kalyan-figlet-mempred >> /dev/null")
+            os.system("docker run -d --name asad-figlet-mempred functions/figlet >> /dev/null")
+            os.system("docker start asad-figlet-mempred >> /dev/null")
             print(bcolors.OKGREEN + "MEMORY Dynamic Scaling Out" + bcolors.ENDC)
-        elif mem == "lesser" and  name == "kalyan-figlet-mem":
-            os.system("docker stop kalyan-figlet-mempred >> /dev/null")
-            os.system("docker rm kalyan-figlet-mempred >> /dev/null")
+        elif mem == "lesser" and  name == "asad-figlet-mem":
+            os.system("docker stop asad-figlet-mempred >> /dev/null")
+            os.system("docker rm asad-figlet-mempred >> /dev/null")
             #print (" ")
             print(bcolors.OKGREEN + "MEMORY Dynamic Scaling In" +bcolors.ENDC)
         elif mem == "lesser" and name == "nodockername":
