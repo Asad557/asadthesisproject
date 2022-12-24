@@ -4,7 +4,7 @@
 getmetrics=200
 COUNTER=1
   while [  $COUNTER -lt $getmetrics ]; do
-    echo The getmerics count is $COUNTER 
+    echo The getmerics count is $COUNTER
     docker stats --no-stream | grep asad-figlet | tr -s ' ' | cut -d' ' -f3 | sed 's/%//' >> metrics/cpumetrics
     docker stats --no-stream | grep asad-figlet | tr -s ' ' | cut -d' ' -f7 | sed 's/%//' >> metrics/memmetrics
     #cat metrics/getmetrics |  cut -d' ' -f3 | sed 's/%//' >> metrics/allvalues
@@ -25,8 +25,8 @@ COUNTER=1
         echo $date,$latestcpu >> ./jupyter/csv/cpu.csv
 
       else
-	echo "Date,Cpu_Resource" >> ./jupyter/csv/cpu.csv
-	echo $date,$latestcpu >> ./jupyter/csv/cpu.csv
+	      echo "Date,Cpu_Resource" >> ./jupyter/csv/cpu.csv
+	      echo $date,$latestcpu >> ./jupyter/csv/cpu.csv
       fi
       
       #----------------------------------------------------------------------------------------
@@ -39,32 +39,32 @@ COUNTER=1
       echo "The CPU is less than 75%"
       docker_name=$(docker ps --format "{{.Names}}" | grep -i asad-figlet-cpu)
         if [[ -n "$docker_name" ]]; then
-	        #echo "with docker name"
-	        #rm metrics/cpumetrics
+	              #echo "with docker name"
+	              #rm metrics/cpumetrics
                 #rm metrics/cpugreater75	
-		python3 cpuscaling.py lesser $docker_name
-	else 
-		#rm metrics/cpumetrics
+		            python3 cpuscaling.py lesser $docker_name
+	      else 
+		            #rm metrics/cpumetrics
                 #rm metrics/cpugreater75
-		#echo "without docker name"
-		python3 cpuscaling.py lesser nodockername
-	fi
-      fi    
+		            #echo "without docker name"
+		            python3 cpuscaling.py lesser nodockername
+	      fi
+    fi    
 
-   memgrthan65=$(cat metrics/memgreater65)
+    memgrthan65=$(cat metrics/memgreater65)
     if [[ -n "$memgrthan65" ]]; then         #----( -n option - it will store null variable if output is null)
-      echo "The Memory is greater than 65%"
-      #--------------------------createcpucsv.sh-------------------------------------------------
-      date=$(date "+%d/%m/%Y")
-      latestmem=$(tail -1 metrics/memgreater65)
-      FILE=./jupyter/csv/mem.csv
-      if test -f "$FILE"; then
-        echo $date,$latestmem >> ./jupyter/csv/mem.csv
+                echo "The Memory is greater than 65%"
+                #--------------------------createcpucsv.sh-------------------------------------------------
+                date=$(date "+%d/%m/%Y")
+                latestmem=$(tail -1 metrics/memgreater65)
+                FILE=./jupyter/csv/mem.csv
+                if test -f "$FILE"; then
+                      echo $date,$latestmem >> ./jupyter/csv/mem.csv
 
-      else
-        echo "Date,Mem_Resource" >> ./jupyter/csv/mem.csv
-        echo $date,$latestmem >> ./jupyter/csv/mem.csv
-      fi
+    else
+                echo "Date,Mem_Resource" >> ./jupyter/csv/mem.csv
+                echo $date,$latestmem >> ./jupyter/csv/mem.csv
+    fi
 
       #----------------------------------------------------------------------------------------
       rm metrics/memmetrics
@@ -83,6 +83,6 @@ COUNTER=1
                 #echo "without docker name"
                 python3 memscaling.py lesser nodockername
         fi
-      fi
+    fi
   COUNTER=`expr $COUNTER + 1`
 done
